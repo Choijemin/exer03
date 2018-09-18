@@ -17,14 +17,7 @@ import models.AccountDao;
 public class LoginController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();		
-		if(session.getAttribute("auth") == null ) {
-			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
-			rd.forward(req, resp);
-			
-		}  else {
-			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
-			rd.forward(req, resp);
-		}
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		rd.forward(req, resp);
 	}
 }

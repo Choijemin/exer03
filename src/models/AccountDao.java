@@ -1,5 +1,6 @@
 package models;
 
+import java.util.List;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -34,10 +35,13 @@ public class AccountDao {
 			return -1;
 		}	 
 	}
-	public Map loginck(String id) {
+	public List<Map> loginck(Map map) {
 		SqlSession sql = factory.openSession();
 		try {
-			return sql.selectOne("account.loginck",id);
+			List<Map> p = sql.selectList("account.loginck",map);
+			System.out.println(p);
+			return p;
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;

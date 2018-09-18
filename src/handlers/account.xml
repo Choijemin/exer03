@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="account">
+	<insert id="addAccount" parameterType="java.util.HashMap">
+		insert into account
+		values(#{id},#{pass},#{name},#{gender})
+	</insert>
+
+	<select id="getAccountById" resultType="java.util.HashMap" parameterType="java.lang.String">
+		select * from account where id=#{id}
+	</select>
+
+	<select id="loginCheck" parameterType="java.util.HashMap"  resultType="java.util.HashMap"> 
+		select * from account where id=#{id} and pass=#{pass}
+	</select>
+	
+</mapper>

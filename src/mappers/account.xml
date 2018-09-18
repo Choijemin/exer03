@@ -11,7 +11,7 @@
 		select id from account where id = #{id}			
 	</select>
 	
-	<select id="loginck" resultType="java.util.HashMap" parameterType="java.lang.String">
-		select * from account where id = #{id} and pass = #{pass}
+	<select id="loginck" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from account where id=#{id} and pass=#{pass}
 	</select>
 </mapper>
