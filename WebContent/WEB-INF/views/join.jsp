@@ -22,23 +22,23 @@
 		<form action="" method="post" autocomplete="off" >
 			<p>
 				<b>아이디(*)</b><br/>
-				<input type="text" name="ids(this)" placeholder="account id" style="width: 99%;"/>
+				<input type="text" name="id" placeholder="account id" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>비밀번호(*)</b><br/>	
-				<input type="password" name="" placeholder="account pass" style="width: 99%;"/>
+				<input type="password" name="pass" placeholder="account pass" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>비밀번호 재확인(*)</b><br/>	
-				<input type="password" name="" placeholder="confirm pass" style="width: 99%;"/>
+				<input type="password" name="pass" placeholder="confirm pass" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>이름(*)</b><br/>	
-				<input type="text" name="" placeholder="user name" style="width: 99%;"/>
+				<input type="text" name="name" placeholder="user name" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>성별(*)</b><br/>	
-				<select name="" style="width: 100%;">
+				<select name="gender" style="width: 100%;">
 					<option value="M">남성</option>
 					<option value="F">여성</option>
 				</select>

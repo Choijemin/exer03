@@ -15,6 +15,7 @@ public class SignUpCheckController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		// 이 컨트롤러에서 처리 결과를 보내는데 ajax의 결과물인 json을 보내야 된다면
+		
 		resp.setContentType("application/json;charset=utf-8");
 		PrintWriter out = resp.getWriter();
 		

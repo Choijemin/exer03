@@ -14,5 +14,4 @@
 	<select id="loginck" resultType="java.util.HashMap" parameterType="java.lang.String">
 		select * from account where id = #{id} and pass = #{pass}
 	</select>
-	
 </mapper>
