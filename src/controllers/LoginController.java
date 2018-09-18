@@ -19,7 +19,6 @@ public class LoginController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		String id = req.getParameter("id");
-		String pass = req.getParameter("pass");
 		
 		AccountDao acd = new AccountDao();
 		Map m = acd.loginck(id);
