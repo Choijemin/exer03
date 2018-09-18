@@ -1,0 +1,7 @@
+@charset "EUC-KR";
+
+input,textarea,select,button {
+	padding: 3px;
+	font-size: 11pt;
+	font-family: ¸¼Àº °íµñ;
+}
