@@ -37,7 +37,7 @@ public class AccountDao {
 	public Map loginck(String id) {
 		SqlSession sql = factory.openSession();
 		try {
-			return sql.selectOne("account.loginck", id);
+			return sql.selectOne("account.loginck",id);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
