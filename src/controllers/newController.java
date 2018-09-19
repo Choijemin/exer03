@@ -51,8 +51,6 @@ public class newController extends HttpServlet {
 			 session.setAttribute("agree", agree);
 			 session.setAttribute("disagree", disagree);
 			 session.setAttribute("writer", session.getAttribute("id"));
-		
-			 
 			 resp.sendRedirect(req.getContextPath()+"/trend.do");
 		} else {
 			req.setAttribute("err", true);

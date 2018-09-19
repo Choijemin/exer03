@@ -31,12 +31,23 @@ public class issueDao {
 			return -1;
 		}
 	}
+	// 요게 목록확인 하기
 	public List<Map> allTrend() {
 		SqlSession sql = factory.openSession();
 		try {
 			List<Map> p = sql.selectList("issue.alltrend");
 			return p;
 		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	// 요게 상세보기
+	public Map getDetail(int no) {
+		SqlSession sql = factory.openSession();
+		try {
+			return sql.selectOne("issue.getdetail",no);
+		}catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}

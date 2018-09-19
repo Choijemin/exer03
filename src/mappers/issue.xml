@@ -11,7 +11,7 @@
 		select * from issue order by regdate desc
 	</select>
 	
-	<select id="loginck" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		
+	<select id="getdetail" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		select * from issue where no = #{no}
 	</select>
 </mapper>

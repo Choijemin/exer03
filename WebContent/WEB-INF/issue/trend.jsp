@@ -26,9 +26,10 @@
 			<b><%= session.getAttribute("id") %></b>, 로그온 | <a
 				href="<%=application.getContextPath()%>/logout.do">로그오프</a>
 			<hr />
+			<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>
 		</div>
 		<h2>【토론목록】</h2>
-		<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>
+	
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
 		<%
 			for(int i = 0; i < li.size(); i++) {
@@ -40,7 +41,7 @@
 					<%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
 				</p>
 				<p>
-					<a href=""><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
+					<a href="<%= application.getContextPath() %>/detail.do"><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
 				</p>
 			</div>
 		<% } %>
