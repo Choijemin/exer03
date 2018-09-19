@@ -18,7 +18,19 @@ import models.AccountDao;
 @WebServlet("/join.do")
 public class JoinController extends HttpServlet {
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		req.setAttribute("id", "");
+		req.setAttribute("pass", "");
+		req.setAttribute("name", "");
+		req.setAttribute("gender", "");
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/join.jsp");
+		rd.forward(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String id = req.getParameter("id");
 		String pass = req.getParameter("pass");
 		String name = req.getParameter("name");
@@ -26,10 +38,10 @@ public class JoinController extends HttpServlet {
 		
 		AccountDao acd = new AccountDao();
 		Map deta = new HashMap();
-		deta.put("ID", id);
-		deta.put("PASS", pass);
-		deta.put("NAME", name);
-		deta.put("GENDER", gender);
+		deta.put("id", id);
+		deta.put("pass", pass);
+		deta.put("name", name);
+		deta.put("gender", gender);
 		
 		int j = acd.addAccount(deta);
 	
@@ -38,6 +50,7 @@ public class JoinController extends HttpServlet {
 		if(j == 1) {
 			resp.sendRedirect(req.getContextPath()+ "/index.do");
 		} else {
+			
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/join.jsp");
 			rd.forward(req, resp);
 		}

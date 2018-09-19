@@ -1,9 +1,8 @@
 package models;
 
-import java.util.List;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
@@ -11,45 +10,33 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import oracle.net.ns.SessionAtts;
-
+public class issueDao {
+	SqlSessionFactory factory; 
 	
-
-public class AccountDao {
-	SqlSessionFactory factory;
-	
-	public AccountDao() throws IOException{
+	public issueDao() throws IOException {
 		SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-		InputStream is = Resources.getResourceAsStream("mybatis-config.xml");
+		InputStream is =  Resources.getResourceAsStream("mybatis-config.xml");
 		factory = builder.build(is);
 	}
-	
-	// 요게 회원가입
-	public int addAccount(Map map) {
+	// 요게 이슈등록하기
+	public int addIssue(Map map) {
 		SqlSession sql = factory.openSession();
 		try {
-			int r = sql.insert("account.addAccount", map);
+			int r = sql.insert("issue.addissue", map);
 			if(r == 1) 
 				sql.commit();
 			return r;
-		} catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			return -1;
-		}	 
+		}
 	}
-	/*public Map joinck(Map map) {
-		
-	}*/
-	
-	// 요게 로그인 
-	public Map loginck(Map map) {
+	public List<Map> allTrend() {
 		SqlSession sql = factory.openSession();
 		try {
-			Map p = sql.selectOne("account.loginck",map);
-			System.out.println(p);
+			List<Map> p = sql.selectList("issue.alltrend");
 			return p;
-			
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}

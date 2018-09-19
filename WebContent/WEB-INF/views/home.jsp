@@ -12,9 +12,11 @@
 	<div align="center">
 		<h1># MVC</h1>
 		<div align="right" style="margin-right: 10%; margin-left: 10%; font-size: small;">
-			<b>blahblah</b>,  로그온 |
+			<b><%= session.getAttribute("id") %></b>,  로그온 |
 			<a href="<%=application.getContextPath() %>/logout.do">로그오프</a>
 			<hr/>
+			<a href = "<%= application.getContextPath() %>/trend.do">이슈목록</a> |  
+			<a href = "<%= application.getContextPath() %>/new.do">이슈등록</a>
 		</div>
 		<div style="margin-right: 10%; margin-left: 10%;">
 			<form action="<%=application.getContextPath() %>/search.do">

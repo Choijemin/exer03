@@ -19,7 +19,7 @@
 		
 		<h3 style="color: blue;">Step1.당신의 계정을 생성하세요.</h3>
 		<h3 style="color: silver;">	Step2.당신의 관심사항을 설정하세요.</h3>
-		<form action="" method="post" autocomplete="off" >
+		<form action="join.do" method="post" autocomplete="off" >
 			<p>
 				<b>아이디(*)</b><br/>
 				<input type="text" name="id" placeholder="account id" style="width: 99%;"/>

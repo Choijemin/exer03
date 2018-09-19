@@ -16,6 +16,7 @@
 	 --%>
 	<div align="center">
 		<h1>〔로그인〕</h1>
+		<% if(request.getAttribute("err") != null) { %>
 		<p id="msg"
 			style="font-size: small; color: red; ">
 			아이디나 비밀번호가 일치하지 않습니다. <b>［x］</b></p>
@@ -24,6 +25,7 @@
 				this.style.display = "none";
 			};
 		</script>
+		<% } %>
 		<div style="margin-left: 10%; margin-right: 10%; text-align: left;">
 		<form action="session.do" method="post" autocomplete="off" >
 			<p>

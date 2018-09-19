@@ -25,7 +25,6 @@ public class IndexController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		req.getAttribute("auth");
 		if(session.getAttribute("auth") == null) {
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/guest.jsp");
 			/*
