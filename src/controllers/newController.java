@@ -30,7 +30,7 @@ public class newController extends HttpServlet {
 		String content = req.getParameter("content");
 		String agree = req.getParameter("agree");
 		String disagree = req.getParameter("disagree");
-		long date = session.getCreationTime();
+		//long date = session.getCreationTime();
 		
 		issueDao isd = new issueDao();
 		Map m = new HashMap<>();
@@ -39,7 +39,7 @@ public class newController extends HttpServlet {
 		m.put("agree", agree);
 		m.put("disagree", disagree);
 		m.put("writer", session.getAttribute("id"));
-		m.put("regdate", date);
+		//m.put("regdate", date);
 		
 		int i = isd.addIssue(m);
 		
@@ -51,7 +51,7 @@ public class newController extends HttpServlet {
 			 session.setAttribute("agree", agree);
 			 session.setAttribute("disagree", disagree);
 			 session.setAttribute("writer", session.getAttribute("id"));
-			 session.setAttribute("regdate", date);
+		
 			 
 			 resp.sendRedirect(req.getContextPath()+"/trend.do");
 		} else {

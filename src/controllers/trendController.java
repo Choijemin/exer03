@@ -21,17 +21,4 @@ public class trendController extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/issue/trend.jsp");
 		rd.forward(req, resp);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession();
-		
-		String cate = (String)session.getAttribute("cate");
-		
-		
-		issueDao isd = new issueDao();
-		Map m = new HashMap<>();
-		
-	
-	}
 }

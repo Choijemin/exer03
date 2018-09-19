@@ -1,5 +1,14 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="models.issueDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	issueDao isd = new issueDao();
+	List<Map> li = isd.allTrend();
+	SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,26 +28,23 @@
 			<hr />
 		</div>
 		<h2>【토론목록】</h2>
+		<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
+		<%
+			for(int i = 0; i < li.size(); i++) {
+				Map m = li.get(i);
+		%>
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
 				<p style="text-align: right; color: gray; font-size: small;" >
-					생활 / 1,211 의견 / 2018.09.18  
+					<%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
 				</p>
 				<p>
-					<a href=""><b>ISSUE.</b> 10년을 기른 아이가 바뀐것을 알았다면?...</a>
+					<a href=""><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
 				</p>
 			</div>
-			<div style="margin-bottom: 15px;"
-				onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
-				<p style="text-align: right; color: gray; font-size: small;" >
-					정치 / 111 의견 / 2018.09.16   
-				</p>
-				<p>
-					<a href=""><b>ISSUE.</b> 난 진보일까? 보수일까??</a>
-				</p>
-			</div>
-		</div>
+		<% } %>
+		
 		<script>
 			var highlight = function(t, e){
 				if(e)
