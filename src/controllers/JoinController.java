@@ -20,11 +20,10 @@ public class JoinController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.setAttribute("id", "");
-		req.setAttribute("pass", "");
-		req.setAttribute("name", "");
-		req.setAttribute("gender", "");
-		
+		req.setAttribute("id","");
+		req.setAttribute("pass","");
+		req.setAttribute("name","");
+
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/join.jsp");
 		rd.forward(req, resp);
 	}
@@ -45,12 +44,19 @@ public class JoinController extends HttpServlet {
 		
 		int j = acd.addAccount(deta);
 	
-		HttpSession session = req.getSession();
+	
 		
 		if(j == 1) {
+			HttpSession session = req.getSession();
+			session.setAttribute("auth", true);
+			session.setAttribute("id", id);
 			resp.sendRedirect(req.getContextPath()+ "/index.do");
 		} else {
-			
+			req.setAttribute("err", true);
+			req.setAttribute("id", id);
+			req.setAttribute("pass", pass);
+			req.setAttribute("name", name);
+	
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/join.jsp");
 			rd.forward(req, resp);
 		}

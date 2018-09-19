@@ -38,10 +38,10 @@
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
 				<p style="text-align: right; color: gray; font-size: small;" >
-					<%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
+					<%= m.get("NO") %>. <%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
 				</p>
 				<p>
-					<a href="<%= application.getContextPath() %>/detail.do"><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
+					<a href="<%= application.getContextPath() %>/detail.do?no=<%= m.get("NO") %>"><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
 				</p>
 			</div>
 		<% } %>
