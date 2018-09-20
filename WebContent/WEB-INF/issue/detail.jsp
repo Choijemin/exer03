@@ -1,12 +1,11 @@
+<%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="models.issueDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	int no = Integer.parseInt(request.getParameter("no"));
-	issueDao isd = new issueDao();
-	Map m = isd.getDetail(no);
+	Map is = (Map)request.getAttribute("issue");
 %>
 <!DOCTYPE html>
 <html>
@@ -28,23 +27,26 @@
 		</div>
 		<h2>【토론배틀】</h2>
 		<small style="font-style: italic;">찬성이냐, 반대냐 그것이 문제로다!</small>
-		<%
-			if(m != null) {
-		%>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left;">
-			<h3><%= m.get("CATE") %></h3>
+		<%
+			String str = (String)is.get("CONTENT");
+			if(str.indexOf("\n") != -1) {
+		%>
+		<h3>#.<%=str.substring(0, str.indexOf("\n")) %></h3>
+			<%	}else {%>
+			<h3>#.<%=str %></h3>	
+			<%	} %>
 			<p>
-				<%= m.get("CONTENT") %>
+				<%=str.replace("\n", "<br/>") %>
 			</p>
 		</div>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left; margin-top: 	55px; font-size: small;">
 			<p style="color: blue">
-				<b>YES</b> <%= m.get("AGREE") %> <span>0</span> 명 
+				<b>YES</b> <%=is.get("AGREE") %>. <span>221</span> 명 
 			</p>
 			<p style="color: red">
-				<b>NO</b> <%= m.get("DISAGREE") %> <span>0</span> 명 
+				<b>NO</b> <%=is.get("DISAGREE") %>. <span>721</span> 명 
 			</p>
-			<% } %>
 		</div>
 		
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left; margin-top: 	55px;">
@@ -52,23 +54,102 @@
 			<b>〔의견남기기〕</b><br/>
 			</p>
 			<p>
-			<select>
+			<select id="choice" name="choice">
 				<option value="1">YES</option>
 				<option value="0">NO</option>
 			</select>
-			<input type="text" style="width: 80%"/>
+			<input type="text" style="width: 80%" id="ment" name="ment" onchange="opinionAjax();"/>
 			</p>
+			<script>
+			var ino = <%=is.get("NO")%>;
+			var opinionAjax = function() {
+				if(document.getElementById("ment").value.trim().length >0) {
+					var xhr = new XMLHttpRequest();
+					var param = "choice="+document.getElementById("choice").value;
+						param += "&ment="+document.getElementById("ment").value;
+						param += "&ino="+ino;
+					xhr.open("post","<%=application.getContextPath()%>/issue/opinion.do", true);
+					xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+					xhr.onreadystatechange =function(){
+						if(this.readyState==4) {
+							var obj = JSON.parse(this.responseText);
+							if(obj.rst) {
+								// location.reload();
+								document.getElementById("ajaxresult").innerHTML = "의견이 등록되었습니다."
+								document.getElementById("ajaxresult").innerHTML += "즉시 변경을 원하면 새로고침을 눌러주세요.";
+								document.getElementById("ment").value="";
+								document.getElementById("choice").value=1;
+							} else {
+								document.getElementById("ajaxresult").innerHTML = "의견 등록과정에 장애가 발생하였습니다.<br/>"
+							}
+						}
+					}
+					xhr.send(param);
+				}
+			};
+			</script>
+			<small id="ajaxresult"></small>
 		</div>
 		
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left; margin-top: 	35px;">
 			<p>
-				<b>〔전체의견 / <span>942건</span>〕</b><br/>
+				<b>〔전체의견 / <span id = "tot"><%=((List)request.getAttribute("opinions")).size()%></span>〕</b>
+				<small id="time">10</small>초 후 갱신
 			</p>
-			<ul style="list-style: none; font-size: smaller;">
-				<li><b style="color:blue">YES</b> 우리나라의 소극적 안락사 정도는 필요하다고 생각한다</li>
-				<li><b style="color:blue">YES</b> 삶이 죽음보다 더 큰 고통인 사람들이 많습니다</li>
-				<li><b style="color:red">NO</b> 인위적으로 사람을 죽이는 일이 허용되야 합니까?</li>
+			<%
+				List<Map> ops = (List)request.getAttribute("opinions");
+			%>
+			<ul style="list-style: none; font-size: smaller;" id="ops">
+			<% for(int i = 0; i <ops.size(); i++) { 
+				Map e = ops.get(i);
+			%>
+			<li>
+				<% if(((Number)e.get("CHOICE")).intValue() == 1) {%>
+				<b style="color:blue">YES</b>
+				<%}else { %>
+						<b style="color:red">NO</b>
+					<%} %>
+					<%=e.get("MENT") %>
+				<% } %>
+			</li>
 			</ul>
+			<script>
+				var latestAjax = function() {
+					var xhr = new XMLHttpRequest();
+					xhr.open("get","<%=application.getContextPath()%>/issue/opinion.do?ino=<%=is.get("NO")%>", true);
+					xhr.onreadystatechange =function(){
+						// 받아온 객체 배열을 가지고 원래 찍어두던 형태의 HTML을 만들어서
+						// 위 영역에 innerHTML로 세팅
+						if(this.readyState == 4) {
+							var obj = JSON.parse(this.responseText);
+							var html = "";
+							for(var i = 0; i < obj.length; i++) {
+								if(obj[i].CHOICE == 1) 
+									html += "<li><b style=\"color:blue\">YES</b>";
+								else 
+									html += "<li><b style=\"color:red\">NO</b>";
+									
+									html += " : " +  obj[i].MENT + "</li>";
+								}
+								document.getElementById("ops").innerHTML = html;
+								document.getElementById("tot").innerHTML = obj.length;
+							}
+					}
+					xhr.send();
+				};
+				var time = 10;
+			
+				window.setInterval(function() {
+					time--;
+					if(time==0) {
+						document.getElementById("time").innerHTML = time;
+						latestAjax();
+						time = 10;
+					}
+					document.getElementById("time").innerHTML = time;
+				}, 1000);
+				
+			</script>
 		</div>
 	</div>
 </body>

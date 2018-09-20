@@ -5,9 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	issueDao isd = new issueDao();
-	List<Map> li = isd.allTrend();
-	SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+	
+	List<Map> list = (List)request.getAttribute("li");
+	SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 %>
 <!DOCTYPE html>
 <html>
@@ -32,8 +32,8 @@
 	
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
 		<%
-			for(int i = 0; i < li.size(); i++) {
-				Map m = li.get(i);
+			for(int i = 0; i < list.size(); i++) {
+				Map m = list.get(i);
 		%>
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
@@ -41,7 +41,8 @@
 					<%= m.get("NO") %>. <%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
 				</p>
 				<p>
-					<a href="<%= application.getContextPath() %>/detail.do?no=<%= m.get("NO") %>"><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
+					
+					<a href="<%= application.getContextPath() %>/detail.do?no=<%= m.get("NO") %>"><b>ISSUE.</b> <%= m.get("REP") %></a>
 				</p>
 			</div>
 		<% } %>

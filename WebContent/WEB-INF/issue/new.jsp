@@ -19,9 +19,18 @@
 			<hr />
 		</div>
 		<h2>【이슈등록】</h2>
+		<%if(request.getAttribute("err") != null) { %>
+		<p id="msg"
+			style="font-size: small; color: red;">
+			이슈 등록 과정에 문제가 발생하였습니다. <b>［x］</b></p>
+		<script>
+			document.getElementById("msg").onclick = function() {
+				this.style.display = "none";
+			};
+		</script>
+		<%} %>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
-			
-			<form action = "new.do" method="post" autocomplete="off">
+			<form action = "<%= application.getContextPath() %>/new.do" method="post" autocomplete="off">
 				<p>
 					<b>〔분류〕</b><br/>
 					<select name="cate" style="width: 100%">

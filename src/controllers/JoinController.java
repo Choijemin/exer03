@@ -52,6 +52,7 @@ public class JoinController extends HttpServlet {
 			session.setAttribute("id", id);
 			resp.sendRedirect(req.getContextPath()+ "/index.do");
 		} else {
+			
 			req.setAttribute("err", true);
 			req.setAttribute("id", id);
 			req.setAttribute("pass", pass);
