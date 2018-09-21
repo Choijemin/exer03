@@ -57,8 +57,6 @@
 				else
 					t.style.background ="white";
 			}
-		
-		
 		</script>
 	</div>
 </body>
