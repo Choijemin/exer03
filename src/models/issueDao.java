@@ -52,4 +52,16 @@ public class issueDao {
 			return null;
 		}
 	}
+	
+	// 메인 24시간 이내 이슈 
+	public List<Map> mainissue() {
+		SqlSession sql = factory.openSession();
+		try {
+			List<Map> p = sql.selectList("issue.mainissue");
+			return p;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

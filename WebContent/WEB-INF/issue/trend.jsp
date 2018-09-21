@@ -29,7 +29,10 @@
 			<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>
 		</div>
 		<h2>【토론목록】</h2>
-	
+		<div align="center" style="margin-right: 10%; margin-left: 10%; font-size: small;">
+		전체(3) | <a
+				href="<%=application.getContextPath()%>/issue/cate.do?cate=life">생활(1)</a>
+		</div>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
 		<%
 			for(int i = 0; i < list.size(); i++) {

@@ -14,4 +14,8 @@
 	<select id="getdetail" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		select * from issue where no = #{no}
 	</select>
+	
+	<select id="mainissue" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		 select * from(select rownum as r, t.* from(select * from issue order by no desc) t) where r between 1 and 3
+	</select>
 </mapper>
