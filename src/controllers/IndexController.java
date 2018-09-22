@@ -1,6 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import models.issueDao;
 
 
 @WebServlet("/index.do")
@@ -35,6 +40,18 @@ public class IndexController extends HttpServlet {
 			 */
 			rd.forward(req, resp);
 		} else {
+			issueDao ido = new issueDao();
+			List<Map> mi = ido.mainissue();
+			for(int i = 0; i < mi.size(); i++) {
+				Map p = mi.get(i);
+				String ctr = (String)p.get("CONTENT");
+				if(ctr.contains("\n")) {
+					p.put("REP", ctr.substring(0, ctr.indexOf("\n")));
+				} else {
+					p.put("REP", ctr);
+				}
+			}
+			req.setAttribute("mi", mi);
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/home.jsp");
 			rd.forward(req, resp);
 		}

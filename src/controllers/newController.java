@@ -46,12 +46,8 @@ public class newController extends HttpServlet {
 		System.out.println(i);
 		
 		if(i == 1) {
-			 session.setAttribute("cate", cate);
-			 session.setAttribute("content", content);
-			 session.setAttribute("agree", agree);
-			 session.setAttribute("disagree", disagree);
-			 session.setAttribute("writer", session.getAttribute("id"));
 			 resp.sendRedirect(req.getContextPath()+"/trend.do");
+			 
 		} else {
 			req.setAttribute("err", true);
 			RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/issue/new.jsp");

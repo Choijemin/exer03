@@ -15,5 +15,6 @@
 	<mappers>
 		<mapper resource="mappers/account.xml"/>
 		<mapper resource="mappers/issue.xml"/>
+		<mapper resource="mappers/opinion.xml"/>
 	</mappers>
 </configuration>

@@ -5,9 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	issueDao isd = new issueDao();
-	List<Map> li = isd.allTrend();
-	SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+	
+	List<Map> list = (List)request.getAttribute("li");
+	SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 %>
 <!DOCTYPE html>
 <html>
@@ -29,11 +29,14 @@
 			<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>
 		</div>
 		<h2>【토론목록】</h2>
-	
+		<div align="center" style="margin-right: 10%; margin-left: 10%; font-size: small;">
+		전체(3) | <a
+				href="<%=application.getContextPath()%>/issue/cate.do?cate=life">생활(1)</a>
+		</div>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
 		<%
-			for(int i = 0; i < li.size(); i++) {
-				Map m = li.get(i);
+			for(int i = 0; i < list.size(); i++) {
+				Map m = list.get(i);
 		%>
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
@@ -41,7 +44,8 @@
 					<%= m.get("NO") %>. <%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
 				</p>
 				<p>
-					<a href="<%= application.getContextPath() %>/detail.do?no=<%= m.get("NO") %>"><b>ISSUE.</b> <%= m.get("CONTENT") %></a>
+					
+					<a href="<%= application.getContextPath() %>/detail.do?no=<%= m.get("NO") %>"><b>ISSUE.</b> <%= m.get("REP") %></a>
 				</p>
 			</div>
 		<% } %>
@@ -53,8 +57,6 @@
 				else
 					t.style.background ="white";
 			}
-		
-		
 		</script>
 	</div>
 </body>

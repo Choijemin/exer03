@@ -26,7 +26,7 @@
 			</p>
 			<p>
 				<b>비밀번호(*)</b><br/>	
-				<input type="password" name="pass" placeholder="account pass" value="<%= request.getParameter("pass")%>" style="width: 99%;"/>
+				<input type="password" name="pass" placeholder="account pass" value="<%= request.getAttribute("pass")%>" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>비밀번호 재확인(*)</b><br/>	
@@ -34,7 +34,7 @@
 			</p>
 			<p>
 				<b>이름(*)</b><br/>	
-				<input type="text" name="name" placeholder="user name" value="<%= request.getParameter("name") %>" style="width: 99%;"/>
+				<input type="text" name="name" placeholder="user name" value="<%= request.getAttribute("name") %>" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>성별(*)</b><br/>	
