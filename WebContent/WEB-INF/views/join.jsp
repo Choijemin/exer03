@@ -22,7 +22,7 @@
 		<form action="join.do" method="post" autocomplete="off" >
 			<p>
 				<b>아이디(*)</b><br/>
-				<input type="text" name="id" placeholder="account id"  value="<%= request.getParameter("id") %>" style="width: 99%;"/>
+				<input type="text" name="id" placeholder="account id"  value="<%= request.getAttribute("id") %>" style="width: 99%;"/>
 			</p>
 			<p>
 				<b>비밀번호(*)</b><br/>	
