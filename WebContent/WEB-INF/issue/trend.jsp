@@ -25,13 +25,22 @@
 			style="margin-right: 10%; margin-left: 10%; font-size: small;">
 			<b><%= session.getAttribute("id") %></b>, 로그온 | <a
 				href="<%=application.getContextPath()%>/logout.do">로그오프</a>
-			<hr />
-			<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>
+			<hr/>
+			<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>  |
+			<a href = "<%= application.getContextPath() %>/index.do">홈으로</a>
 		</div>
 		<h2>【토론목록】</h2>
 		<div align="center" style="margin-right: 10%; margin-left: 10%; font-size: small;">
-		전체(3) | <a
-				href="<%=application.getContextPath()%>/issue/cate.do?cate=life">생활(1)</a>
+		전체(3) <br>
+		<a href="<%=application.getContextPath()%>/cate.do?cate=it">IT/컴퓨터(1)</a>
+		| <a href="<%=application.getContextPath()%>/cate.do?cate=game">게임(1)</a>
+		| <a href="<%=application.getContextPath()%>/cate.do?cate=politics">정치/경제(1)</a>
+		| <a href="<%=application.getContextPath()%>/cate.do?cate=sports">운동(1)</a><br>
+	    <a href="<%=application.getContextPath()%>/cate.do?cate=food">요리/음식(1)</a>
+		| <a href="<%=application.getContextPath()%>/cate.do?cate=movie">영화/문화(1)</a>
+		| <a href="<%=application.getContextPath()%>/cate.do?cate=life">생활(1)</a>
+		| <a href="<%=application.getContextPath()%>/cate.do?cate=etc">기타(1)</a>
+		
 		</div>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left">
 		<%
@@ -41,7 +50,7 @@
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
 				<p style="text-align: right; color: gray; font-size: small;" >
-					<%= m.get("NO") %>. <%= m.get("CATE") %> / <%= m.get("WRITER") %> / <%= df.format(m.get("REGDATE")) %> 
+					<%= m.get("NO") %>.<%= m.get("CATE") %> / 의견 : <%= m.get("COUNT(*)") %> / <%= df.format(m.get("REGDATE")) %> 
 				</p>
 				<p>
 					

@@ -26,7 +26,8 @@ public class detailController extends HttpServlet {
 		opinionDao odao = new opinionDao();
 		List<Map> opinions = odao.getSomeByIno(no);
 		Map a = ido.getDetail(no);
-		
+		List<Map> agr = odao.sumagree();
+	
 		if(a == null) {
 			resp.sendRedirect(req.getContentType() + "/trend.do");
 		}else {
@@ -36,6 +37,7 @@ public class detailController extends HttpServlet {
 		RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/issue/detail.jsp");
 		req.setAttribute("issue", a);
 		req.setAttribute("opinions", opinions);
+		req.setAttribute("sumagree", agr);
 		rd.forward(req, resp);
 		}
 	}

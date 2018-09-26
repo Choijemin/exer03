@@ -19,6 +19,8 @@ public class opinionDao {
 		InputStream is =  Resources.getResourceAsStream("mybatis-config.xml");
 		factory = builder.build(is);
 	}
+	
+	
 	public int addOne(Map a) {
 		SqlSession sql = factory.openSession();
 		try {
@@ -34,6 +36,7 @@ public class opinionDao {
 			sql.close();
 		}
 	}
+	
 	public List<Map> getSomeByIno(int ino) {
 		SqlSession sql = factory.openSession();
 		try {
@@ -44,6 +47,30 @@ public class opinionDao {
 			return null;
 		} finally {
 			sql.close();
+		}
+	}
+	
+	// ÇÖÀÌ½´ 
+	public List<Map> hotissue() {
+		SqlSession sql = factory.openSession();
+		try {
+			List<Map> p = sql.selectList("opinion.hotissue");
+			return p;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// ÀÇ°ß yes, no °³¼ö 
+	public List<Map> sumagree() {
+		SqlSession sql = factory.openSession();
+		try {
+			List<Map> p = sql.selectList("opinion.sumagree");
+			return p;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

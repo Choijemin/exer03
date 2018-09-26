@@ -24,6 +24,8 @@
 			<b><%= session.getAttribute("id") %></b>, 로그온 | <a
 				href="<%=application.getContextPath()%>/logout.do">로그오프</a>
 			<hr />
+			<a href = "<%= application.getContextPath() %>/new.do">이슈 등록</a>  |
+			<a href = "<%= application.getContextPath() %>/index.do">홈으로</a>
 		</div>
 		<h2>【토론배틀】</h2>
 		<small style="font-style: italic;">찬성이냐, 반대냐 그것이 문제로다!</small>
@@ -42,13 +44,17 @@
 		</div>
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left; margin-top: 	55px; font-size: small;">
 			<p style="color: blue">
-				<b>YES</b> <%=is.get("AGREE") %>. <span>221</span> 명 
+			
+				<b>YES</b> <%=is.get("AGREE") %>. <span id = "yes"></span> 명 
+			
 			</p>
 			<p style="color: red">
-				<b>NO</b> <%=is.get("DISAGREE") %>. <span>721</span> 명 
+				<b>NO</b> <%=is.get("DISAGREE") %>. <span id = "no">721</span> 명 
 			</p>
-		</div>
+			
 		
+		</div>
+	
 		<div style="margin-right: 10%; margin-left: 10%; text-align: left; margin-top: 	55px;">
 			<p>
 			<b>〔의견남기기〕</b><br/>
@@ -113,7 +119,17 @@
 				<% } %>
 			</li>
 			</ul>
+			<%-- <% 
+				List<Map> sag = (List)request.getAttribute("sumagree");
+				for(int i = 0; i < sag.size(); i++) {
+					Map sa = sag.get(i);
+					if(sa.get("CHOICE").equals(1)) {
+						System.out.println("yes : " + sa.get("COUNT(*)"));
+					}
+				}
+			%> --%>
 			<script>
+			
 				var latestAjax = function() {
 					var xhr = new XMLHttpRequest();
 					xhr.open("get","<%=application.getContextPath()%>/issue/opinion.do?ino=<%=is.get("NO")%>", true);
@@ -131,12 +147,23 @@
 									
 									html += " : " +  obj[i].MENT + "</li>";
 								}
+							
+							/* 	for(var i = 0; i < obj.length; i++) {
+									var sa = sag.get(i);
+									if(sa[i].CHOICE == 1) 
+										document.getElementById("yes").innerHTML = sa.get("COUNT(*)");
+									else 
+										document.getElementById("no").innerHTML = sa.get("COUNT(*)");
+								}
+								 */
 								document.getElementById("ops").innerHTML = html;
 								document.getElementById("tot").innerHTML = obj.length;
 							}
+						
 					}
 					xhr.send();
 				};
+				
 				var time = 10;
 			
 				window.setInterval(function() {

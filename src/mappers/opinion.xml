@@ -8,4 +8,14 @@
 	<select id="getSomeByIno" resultType="java.util.HashMap" parameterType="java.lang.Integer">
 		select * from opinion where ino=#{ino} order by no asc
 	</select>
+	
+	<select id="hotissue" resultType="java.util.HashMap" parameterType="java.util.HashMap">	
+		  <!-- select * from(select ino, count(*) from opinion group by ino order by count(*) desc) where rownum &lt;= 3 -->
+		   select * from issue left join (select ino, count(*) from opinion group by ino order by count(*) desc) t on no = t.ino where rownum &lt;= 3
+	</select>
+	
+	<select id="sumagree" resultType="java.util.HashMap" parameterType="java.util.HashMap">	
+		select ino, choice, count(*) from opinion group by ino,choice
+	</select>
+
 </mapper>

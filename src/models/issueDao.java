@@ -64,4 +64,16 @@ public class issueDao {
 			return null;
 		}
 	}
+	
+	// 내가 의견 남긴 이슈
+	public List<Map> myissue(String id) {
+		SqlSession sql = factory.openSession();
+		try {
+			return sql.selectList("issue.myissue", id);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

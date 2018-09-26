@@ -8,7 +8,8 @@
 	</insert>
 	
 	<select id = "alltrend" resultType = "java.util.HashMap">
-		select * from issue order by regdate desc
+		<!-- select * from issue order by regdate desc -->
+		select * from issue left join(select ino, count(*) from opinion group by ino order by count(*) desc) t on no = t.ino
 	</select>
 	
 	<select id="getdetail" resultType="java.util.HashMap" parameterType="java.util.HashMap">
@@ -16,6 +17,12 @@
 	</select>
 	
 	<select id="mainissue" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		 select * from(select rownum as r, t.* from(select * from issue order by no desc) t) where r between 1 and 3
+		select * from(select * from(select sysdate - regdate as gap, issue.*  from  issue) where gap &lt;= 1) where rownum &lt;=3
+		 <!-- select * from(select rownum as r, t.* from(select * from issue order by no desc) t) where r between 1 and 3 -->
 	</select>
-</mapper>
+	
+	<select id="myissue" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		 select * from opinion left join(select * from issue) t on ino = t.no
+	</select>
+		
+	</mapper>
