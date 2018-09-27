@@ -62,12 +62,11 @@ public class opinionDao {
 		}
 	}
 	
-	// 의견 yes, no 개수 
-	public List<Map> sumagree() {
+	// 내가 의견 남긴 이슈
+	public List<Map> myissue(String id) {
 		SqlSession sql = factory.openSession();
 		try {
-			List<Map> p = sql.selectList("opinion.sumagree");
-			return p;
+			return sql.selectList("opinion.myissue",id);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;

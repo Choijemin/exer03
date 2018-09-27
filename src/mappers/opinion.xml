@@ -13,9 +13,10 @@
 		  <!-- select * from(select ino, count(*) from opinion group by ino order by count(*) desc) where rownum &lt;= 3 -->
 		   select * from issue left join (select ino, count(*) from opinion group by ino order by count(*) desc) t on no = t.ino where rownum &lt;= 3
 	</select>
-	
-	<select id="sumagree" resultType="java.util.HashMap" parameterType="java.util.HashMap">	
-		select ino, choice, count(*) from opinion group by ino,choice
-	</select>
 
+	<select id="myissue" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		 <!-- select * from opinion left join(select * from issue) t on ino = t.no -->
+		 select * from issue right join(select * from opinion where talker = #{talker} and rownum = 1) t1 on t1.ino = issue.no
+	</select>
+	
 </mapper>

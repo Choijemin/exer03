@@ -26,7 +26,7 @@ public class detailController extends HttpServlet {
 		opinionDao odao = new opinionDao();
 		List<Map> opinions = odao.getSomeByIno(no);
 		Map a = ido.getDetail(no);
-		List<Map> agr = odao.sumagree();
+		List<Map> agr = ido.sumagree();
 	
 		if(a == null) {
 			resp.sendRedirect(req.getContentType() + "/trend.do");

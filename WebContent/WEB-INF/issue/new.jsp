@@ -34,12 +34,12 @@
 				<p>
 					<b>〔분류〕</b><br/>
 					<select name="cate" style="width: 100%">
-						<option value="IT/컴퓨터">IT/컴퓨터</option>
-						<option value="게임">게임</option>
-						<option value="정치/경제">정치/경제</option>
+						<option value="it">IT/컴퓨터</option>
+						<option value="game">게임</option>
+						<option value="politic">정치/경제</option>
 						<option value="sports">운동</option>
 						<option value="food">요리/음식</option>
-						<option value="영화/문화">영화/문화</option>
+						<option value="culture">영화/문화</option>
 						<option value="life">생활</option>
 						<option value="etc">기타</option>
 					</select>

@@ -6,36 +6,29 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MVC</title>
-<c:url value="/css/style.css" var = "stylecss"/>
-<link rel="stylesheet" href="${stylecss }" />
+<link rel="stylesheet" href="<%=application.getContextPath()%>/css/style.css" />
 </head>
 <body>
 	<div align="center">
 		<h1># MVC</h1>
 		<div align="right" style="margin-right: 10%; margin-left: 10%; font-size: small;">
-			<b>${sessionScope.id }</b>,  로그온 |
-			<%-- <a href="<%=application.getContextPath() %>/logout.do">로그오프</a>  --%>
-			<c:url value = "/logout.do" var = "logout"/>
-			<a href="${logout }">로그오프</a> 
+			<b><%= session.getAttribute("id") %></b>,  로그온 |
+			<a href="<%=application.getContextPath() %>/logout.do">로그오프</a>
 			<hr/>
 		</div>
 		<div style="margin-right: 10%; margin-left: 10%;">
-			<c:url value = "/search.do" var = "search"/>
-			<form action="${search }">
+			<form action="<%=application.getContextPath() %>/search.do">
 				<input type="text" style="width:98%;" placeholder="search keyword"/>
 			</form>
 		</div>
-			<c:url value = "/trend.do" var = "trend"/>
-			<c:url value = "/new.do" var = "newdo"/>
-			<a href = "${trend }">이슈목록</a> |  
-			<a href = "${newdo }">이슈등록</a>
+			<a href = "<%= application.getContextPath() %>/trend.do">이슈목록</a> |  
+			<a href = "<%= application.getContextPath() %>/new.do">이슈등록</a>
 		
 			<div style="margin-right: 10%; margin-left: 10%;" align="left">
 			<%
@@ -79,35 +72,30 @@
 				List<Map> mi = (List)request.getAttribute("mi");
 				SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 			%>
-		<%-- 	<%
+			<% if(mi.size() == 0) { %>
+			<ul>
+				<li>24 시간 이내 등록된 이슈가 없습니다</li>
+			</ul>
+			<% } %>
+			<%
 				int su = 0;
 				for(int i = 0; i < mi.size(); i++) {
 					Map z = mi.get(i);
 					su++;	
 			%>
-			<%= z.get("CATE") %> / 작성자 : <%= z.get("WRITER") %> / <%= df.format(z.get("REGDATE")) %>
-			 <a href="<%= application.getContextPath() %>/detail.do?no=<%= z.get("NO") %>"><%= su %>.<b>ISSUE.</b> <%= z.get("REP") %></a>
-			<% } %> --%>
-			<c:choose>
-				<c:when test="${requestScope.mi.size() == 0 }">
-				<ul>
-					<li>24시간 이내에 등록된 이슈가 없습니다.</li>
-				</ul>
-				</c:when>
-			</c:choose>
-			<c:forEach var = "i" begin = "0" end = "${requestScope.mi.size() }" step = "1">
-	
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
 				<p style="text-align: right; color: gray; font-size: small;" >
 		
-					${mi.get["CATE"] } 
+					<%= z.get("CATE") %> / 작성자 : <%= z.get("WRITER") %> / <%= df.format(z.get("REGDATE")) %> 
 		
 				</p>
+				<p>
+				 <a href="<%= application.getContextPath() %>/detail.do?no=<%= z.get("NO") %>"><%= su %>.<b>ISSUE.</b> <%= z.get("REP") %></a>
+
+				</p>
 			</div>
-			
-			<%-- 	${mi.get[i] } --%>
-			</c:forEach>
+			<% } %>
 		</div>
 		
 		<div style="margin-right: 10%; margin-left: 10%;" align="left">
