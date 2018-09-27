@@ -38,92 +38,63 @@
 			<a href = "${newdo }">이슈등록</a>
 		
 			<div style="margin-right: 10%; margin-left: 10%;" align="left">
-			<%
-				opinionDao odo = new opinionDao();
-				List<Map> hot = odo.hotissue();
-				SimpleDateFormat af = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-				
-			%>
 			<h3>가장 뜨거운 이슈</h3>
-			<%
-				int hsu = 0;
-				for(int i = 0; i < hot.size(); i++) {
-					Map h = hot.get(i);
-					String ctr = (String)h.get("CONTENT");
-					if(ctr.contains("\n")) {
-						h.put("REP", ctr.substring(0, ctr.indexOf("\n")));
-					} else {
-						h.put("REP", ctr);
-					}
-					hsu++;
-			%>
+				<c:forEach var = "a" begin = "0" end = "${requestScope.hotsize }" step = "1">
 				<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
 				<p style="text-align: right; color: gray; font-size: small;" >
-		
-					<%= h.get("CATE") %> / 의견 : <%= h.get("COUNT(*)") %> / <%= af.format(h.get("REGDATE")) %> 
-		
+					${sessionScope.hot[a].CATE } / 의견 : ${sessionScope.hot[a].COU } / ${af.format(sessionScope.hot[a].REGDATE) }	
 				</p>
 				<p>
-				 <a href="<%= application.getContextPath() %>/detail.do?no=<%= h.get("NO") %>"><%= hsu %>.<b>ISSUE.</b> <%= h.get("REP") %></a>
-
+				<c:url value = "/detail.do?no=${sessionScope.hot[a].NO }" var = "hotissues"/>
+				 <a href="${hotissues }"><b>ISSUE.</b> ${sessionScope.hot[a].REP }</a>
 				</p>
 			</div>
-			<% } %>
+			</c:forEach>
 			<hr/>
 		</div>
 		
 		<div style="margin-right: 10%; margin-left: 10%;" align="left">
 			<h3>최근 등록된 새로운 이슈 !</h3>
-			<% 
-				List<Map> mi = (List)request.getAttribute("mi");
-				SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-			%>
-		<%-- 	<%
-				int su = 0;
-				for(int i = 0; i < mi.size(); i++) {
-					Map z = mi.get(i);
-					su++;	
-			%>
-			<%= z.get("CATE") %> / 작성자 : <%= z.get("WRITER") %> / <%= df.format(z.get("REGDATE")) %>
-			 <a href="<%= application.getContextPath() %>/detail.do?no=<%= z.get("NO") %>"><%= su %>.<b>ISSUE.</b> <%= z.get("REP") %></a>
-			<% } %> --%>
 			<c:choose>
-				<c:when test="${requestScope.mi.size() == 0 }">
+				<c:when test="${requestScope.mainsize == 0 }">
 				<ul>
 					<li>24시간 이내에 등록된 이슈가 없습니다.</li>
 				</ul>
 				</c:when>
 			</c:choose>
-			<c:forEach var = "i" begin = "0" end = "${requestScope.mi.size() }" step = "1">
-	
+			
+			<c:forEach var = "i" begin = "0" end = "${requestScope.mainsize }" step = "1">
+		<%-- 	<c:forEach  var = "i" items = "${requestScope.mainsize }" > --%>
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
 				<p style="text-align: right; color: gray; font-size: small;" >
-		
-					${mi.get["CATE"] } 
-		
+					${sessionScope.mi[i].CATE } / 작성자 :  ${sessionScope.mi[i].WRITER } /  ${df.format(sessionScope.mi[i].REGDATE) }
 				</p>
+				<c:url value = "/detail.do?no=${sessionScope.mi[i].NO } " var = "detaildo"/>
+				<a href="${detaildo }"><b>ISSUE</b>. ${sessionScope.mi[i].REP }</a>
 			</div>
-			
-			<%-- 	${mi.get[i] } --%>
 			</c:forEach>
 		</div>
 		
 		<div style="margin-right: 10%; margin-left: 10%;" align="left">
 			<hr/>
 			<h3>내가 참여한 이슈들</h3>
-			<%
-				String talker = (String)session.getAttribute("id");
-				List<Map> my = odo.myissue(talker);
-				SimpleDateFormat mf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-			%>
-			<% if(my.size() == 0) { %>
-			<ul>
-				<li>내가 참여한 이슈가 없습니다</li>
-			</ul>
-			<% } %>
-			<%
+			<c:choose>
+				<c:when test="${requestScope.mysize == 0 }">
+					<ul>
+						<li>내가 참여한 이슈가 없습니다</li>
+					</ul>
+				</c:when>
+			</c:choose> 
+			
+ 			<c:forEach var = "i" items = "${requestScope.mysize }">
+				<c:choose>
+					
+				</c:choose>
+			</c:forEach> 
+		
+		<%-- 	<%
 				int msu = 0;
 				for(int i = 0; i < my.size(); i++) {
 					Map myi = my.get(i);
@@ -133,9 +104,9 @@
 					} else {
 						myi.put("REP", ctr);
 					}
-					msu++;
-					
+					msu++;	
 			%>
+			
 			
 			<div style="margin-bottom: 15px;" 
 					onmouseenter="highlight(this, true);" onmouseleave="highlight(this, false)">
@@ -150,7 +121,7 @@
 				</p>
 			</div>
 			<% } %>
-		</div>
+		</div>  --%>
 		<script>
 			var highlight = function(t, e){
 				if(e)

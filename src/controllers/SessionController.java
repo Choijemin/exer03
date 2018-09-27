@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import models.AccountDao;
+import models.opinionDao;
 
 @WebServlet("/session.do")
 public class SessionController extends HttpServlet {
@@ -36,10 +38,28 @@ public class SessionController extends HttpServlet {
 		AccountDao acd = new AccountDao();
 		Map m = acd.loginck(map);
 		
-		System.out.println(m);
+		System.out.println("세션 컨트롤러 "+m);
 		
 		if(m != null) {
 			HttpSession session = req.getSession();
+			
+			opinionDao odo = new opinionDao();
+			List<Map> hot = odo.hotissue();
+			for(int i = 0; i < hot.size(); i++) {
+				Map p = hot.get(i);
+				String ctr = (String)p.get("CONTENT");
+				if(ctr.contains("\n")) {
+					p.put("REP", ctr.substring(0, ctr.indexOf("\n")));
+				} else {
+					p.put("REP", ctr);
+				}
+			}
+			SimpleDateFormat af = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			
+			session.setAttribute("af", af);
+			session.setAttribute("hot", hot);
+			session.setAttribute("hotsize", hot.size());
+			
 			session.setAttribute("auth", true);
 			session.setAttribute("id", id);
 			resp.sendRedirect(req.getContextPath() + "/index.do");

@@ -46,7 +46,7 @@ public class AccountDao {
 		SqlSession sql = factory.openSession();
 		try {
 			Map p = sql.selectOne("account.loginck",map);
-			System.out.println(p);
+			System.out.println("어카운드 디에이오" + p);
 			return p;
 			
 		} catch(Exception e) {
